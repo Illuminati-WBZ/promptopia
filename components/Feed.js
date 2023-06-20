@@ -28,11 +28,14 @@ const Feed = () => {
       // console.log("hello");
       const response = await fetch("/api/prompt");
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setPosts(data);
       setFilter(data);
     };
-    fetchPosts();
+    const interval = setInterval(() => {
+      fetchPosts();
+    }, 100);
+    return () => clearInterval(interval);
   }, []);
 
   const handleSearchChange = () => {
