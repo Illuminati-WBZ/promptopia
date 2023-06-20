@@ -26,16 +26,13 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       // console.log("hello");
-      const response = await fetch("/api/prompt");
+      const response = await fetch("/api/prompt", { cache: "no-cache" });
       const data = await response.json();
       // console.log(data);
       setPosts(data);
       setFilter(data);
     };
-    const interval = setInterval(() => {
-      fetchPosts();
-    }, 100);
-    return () => clearInterval(interval);
+    fetchPosts();
   }, []);
 
   const handleSearchChange = () => {
