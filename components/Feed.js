@@ -30,6 +30,7 @@ const Feed = () => {
       console.log("hello");
       const response = await fetch("/api/prompt", { cache: "no-cache" });
       const data = await response.json();
+      console.log(data);
       setPosts(data);
       setFilter(data);
     };
