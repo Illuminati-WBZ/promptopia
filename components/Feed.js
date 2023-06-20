@@ -25,8 +25,10 @@ const Feed = () => {
   const [filter, setFilter] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
+      // console.log("hello");
       const response = await fetch("/api/prompt");
       const data = await response.json();
+      console.log(data);
       setPosts(data);
       setFilter(data);
     };

@@ -7,7 +7,7 @@ import Profile from "@/components/Profile";
 const ProfilePage = ({ params }) => {
   const ID = params.profileID;
   // console.log(ID);
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const [posts, setPosts] = useState([]);
   const router = useRouter();
   useEffect(() => {
@@ -16,7 +16,7 @@ const ProfilePage = ({ params }) => {
     const fetchPosts = async () => {
       const response = await fetch(`/api/users/${ID}/posts`);
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       setPosts(data);
     };
     if (status === "authenticated") {
@@ -44,7 +44,7 @@ const ProfilePage = ({ params }) => {
   };
   return (
     <Profile
-      name={ID === posts[0]?.creator._id ? "My" : posts[0]?.creator.username}
+      name={ID === session?.user?.id ? "My" : posts[0]?.creator.username}
       desc="Welcome to your personalized profile page"
       data={posts}
       handleEdit={handleEdit}
