@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import PromptCard from "./PromptCard";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 const PromptCardList = ({ data, handleTagClick }) => {
   const router = useRouter();
   return (
@@ -22,18 +23,18 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const search = useRef();
   const [posts, setPosts] = useState([]);
+  const { status } = useSession();
   const [filter, setFilter] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      // console.log("hello");
-      const response = await fetch("/api/prompt", { cache: "no-store" });
+      console.log("hello");
+      const response = await fetch("/api/prompt", { cache: "no-cache" });
       const data = await response.json();
-      // console.log(data);
       setPosts(data);
       setFilter(data);
     };
-    fetchPosts();
-  }, []);
+    if (status === "authenticated") fetchPosts();
+  }, [status]);
 
   const handleSearchChange = () => {
     let query = search.current.value;
