@@ -1,6 +1,6 @@
 import Prompt from "@/models/prompt";
 import { ConnectToDB } from "@/utils/database";
-
+import { headers } from "next/headers";
 export const GET = async (req) => {
   const headersList = headers();
   const referer = headersList.get("referer");
