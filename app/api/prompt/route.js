@@ -2,6 +2,8 @@ import Prompt from "@/models/prompt";
 import { ConnectToDB } from "@/utils/database";
 
 export const GET = async (req) => {
+  const headersList = headers();
+  const referer = headersList.get("referer");
   try {
     await ConnectToDB();
     const prompts = await Prompt.find({}).populate("creator");
